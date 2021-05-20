@@ -29,11 +29,11 @@ def train_svm_classifier(features, labels, model_output_path):
 
     labels = sorted(list(set(labels)))
 
-    # print('\nConfusion Matrix:')
-    # print(confusion_matrix(y_test, y_predict, labels=labels))
+    print('\nConfusion Matrix: ')
+    print(confusion_matrix(y_test, y_predict, labels=labels))
 
-    # print('\nClassification report:')
-    # print(classification_report(y_test, y_predict))
+    print('\nClassification report:')
+    print(classification_report(y_test, y_predict))
 
     # save the model to disk
     with open(model_output_path, 'wb') as fid:
