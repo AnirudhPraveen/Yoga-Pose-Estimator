@@ -16,8 +16,7 @@ var poseCanvas;
 var targetCanvas;
 var textCanvas;
 
-let poseNames = ['godess','plank','warrior']
-
+let poseNames = ['warrior', 'goddess', 'plank']
 let overlaySize = {
     width: 640,
     height: 480
@@ -197,7 +196,7 @@ function predicting(canvas, sendImage, poseCanvas, textCanvas, yogaSession) {
             }
             else {
                 var poseTime = Date.now() - yogaSession.getStartTime();
-                if (currentPrediction === yogaSession.getTarget() && currentConfidence > 90) {
+                if (currentPrediction === yogaSession.getTarget() && currentConfidence > 80) {
                     if (poseTime > timerLength * 1000) {
                         console.log('\t\ttransition to next pose!');
                         currentState = 'waiting';
@@ -215,7 +214,7 @@ function predicting(canvas, sendImage, poseCanvas, textCanvas, yogaSession) {
                         console.log('\tholding pose');
                     }
                 }
-                if (currentConfidence < 90) {
+                if (currentConfidence < 80) {
                     currentState = 'waiting';
                     yogaSession.clickTimer();
                 }
