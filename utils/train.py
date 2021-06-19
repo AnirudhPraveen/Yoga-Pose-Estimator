@@ -2,7 +2,7 @@
 import pickle
 
 from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import confusion_matrix, classification_report, plot_confusion_matrix
 from sklearn.svm import SVC
 from utils.data import process_images, augment_data, flatten_dataset, encode_labels, get_ideal_pose
 
@@ -29,9 +29,22 @@ def train_svm_classifier(features, labels, model_output_path):
 
     labels = sorted(list(set(labels)))
 
-    print('\nConfusion Matrix: ')
-    print(confusion_matrix(y_test, y_predict, labels=labels))
+    #print('\nConfusion Matrix: ')
+    #print(confusion_matrix(y_test, y_predict, labels=labels))
 
+    titles_options = [("Confusion matrix, without normalization", None),
+                  ("Normalized confusion matrix", 'true')]
+    for title, normalize in titles_options:
+    	disp = plot_confusion_matrix(classifier, y_test, y_predict,
+                                 display_labels=labels,
+                                 cmap=plt.cm.Blues,
+                                 normalize=normalize)
+    	disp.ax_.set_title(title)
+
+    	print(title)
+    	print(disp.confusion_matrix)
+    plt.show()
+    
     print('\nClassification report:')
     print(classification_report(y_test, y_predict))
 
